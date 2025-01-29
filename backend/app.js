@@ -18,7 +18,7 @@ const corsOptions = {
   origin: [
     "http://localhost:5173",
     "https://anchor-niladrimodaks-projects.vercel.app",
-    "https://anchor-pi.vercel.app/",
+    "https://anchor-pi.vercel.app",
   ],
   credentials: true,
 };
