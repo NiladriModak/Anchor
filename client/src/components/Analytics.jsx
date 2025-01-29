@@ -13,8 +13,9 @@ import {
 } from "chart.js";
 import { getAnalytics } from "../apis/api";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "./Loading";
+import { Button } from "@mui/material";
 
 // Register Chart.js components
 ChartJS.register(
@@ -27,7 +28,8 @@ ChartJS.register(
 );
 
 function Analytics() {
-  const { videoId } = useParams(); // Extract from URL
+  const { videoId } = useParams();
+  const navigator = useNavigate();
   if (!videoId) return <div>No video selected</div>;
 
   const { data, isLoading, error } = useQuery({
@@ -41,13 +43,11 @@ function Analytics() {
 
   // console.log("data->", data);
 
-  // Extract months and comment counts
   const months = data?.monthsInRange || [];
   const commentCounts = months.map(
     (month) => data?.monthlyDistribution?.[month]?.total || 0
   );
 
-  // Chart Data
   const chartData = {
     labels: months,
     datasets: [
@@ -130,11 +130,19 @@ function Analytics() {
         </div>
       </div>
 
-      {/* Chart Section */}
       <div className="w-11/12 h-[400px] mt-6 p-4 border-2 border-slate-800 rounded-lg">
         <h2 className="text-xl font-medium mb-3">Comments Over Time</h2>
         <Bar data={chartData} options={chartOptions} />
       </div>
+      <Button
+        sx={{ margin: "3vmax" }}
+        variant="outlined"
+        onClick={() => {
+          navigator("/");
+        }}
+      >
+        Back to input
+      </Button>
     </div>
   );
 }
