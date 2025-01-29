@@ -48,57 +48,60 @@ function Home() {
       toast.error("Error: " + error.message);
     },
   });
-  if (mutation.isLoading) {
-    return <Loading />;
-  }
+  // if (mutation.isLoading) {
+  //   return <Loading />;
+  // }
   const handleAnalyze = () => {
     const videoId = getYouTubeVideoID(videoUrl);
     if (videoId) {
       mutation.mutate(videoId);
-      if (mutation.isLoading) {
-        return <Loading />;
-      }
     } else {
       toast.error("Invalid YouTube URL");
     }
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-[100vh]">
-      <h1 className="text-3xl ">YouTube Comment Analyzer</h1>
-      <h2 className="text-md text-slate-400 ">
-        <TypeAnimation
-          sequence={[
-            "Please enter the video URL along with ID",
-            3000,
-            "Analyze your video",
-            3000,
-            "Get graphical overview",
-            3000,
-          ]}
-          wrapper="span"
-          speed={75}
-          style={{ fontSize: "2em", display: "inline-block" }}
-          repeat={Infinity}
-        />
-      </h2>
-      <div className="w-full flex justify-center items-center">
-        <TextField
-          className="p-1 w-2/6"
-          sx={{ margin: "1vmax" }}
-          id="outlined-basic"
-          label="Please enter the video URL"
-          variant="outlined"
-          onChange={(e) => setVideoUrl(e.target.value)}
-        />
-      </div>
-      <Button
-        onClick={handleAnalyze}
-        sx={{ backgroundColor: "white", color: "black" }}
-      >
-        Analyze Comment
-      </Button>
-    </div>
+    <>
+      {mutation.isLoading ? (
+        <Loading />
+      ) : (
+        <div className="flex flex-col justify-center items-center h-[100vh]">
+          <h1 className="text-3xl ">YouTube Comment Analyzer</h1>
+          <h2 className="text-md text-slate-400 ">
+            <TypeAnimation
+              sequence={[
+                "Please enter the video URL along with ID",
+                3000,
+                "Analyze your video",
+                3000,
+                "Get graphical overview",
+                3000,
+              ]}
+              wrapper="span"
+              speed={75}
+              style={{ fontSize: "2em", display: "inline-block" }}
+              repeat={Infinity}
+            />
+          </h2>
+          <div className="w-full flex justify-center items-center">
+            <TextField
+              className="p-1 w-2/6"
+              sx={{ margin: "1vmax" }}
+              id="outlined-basic"
+              label="Please enter the video URL"
+              variant="outlined"
+              onChange={(e) => setVideoUrl(e.target.value)}
+            />
+          </div>
+          <Button
+            onClick={handleAnalyze}
+            sx={{ backgroundColor: "white", color: "black" }}
+          >
+            Analyze Comment
+          </Button>
+        </div>
+      )}
+    </>
   );
 }
 

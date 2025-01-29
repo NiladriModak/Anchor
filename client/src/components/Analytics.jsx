@@ -17,7 +17,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "./Loading";
 import { Button } from "@mui/material";
 
-// Register Chart.js components
 ChartJS.register(
   CategoryScale,
   LinearScale,
