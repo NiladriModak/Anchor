@@ -18,7 +18,7 @@ const AuthAPI = () => {
 const getAnalytics = async (videoId) => {
   console.log("Fetching analytics...");
   const { data } = await AuthAPI().get(`/getAnalytics/${videoId}`);
-  console.log("Received data:", data);
+  console.log("Received data:");
   return data;
 };
 
